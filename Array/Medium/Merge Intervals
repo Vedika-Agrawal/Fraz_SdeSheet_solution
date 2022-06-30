@@ -1,0 +1,51 @@
+Given an array of intervals where intervals[i] = [starti, endi], merge all overlapping intervals, and return an array of the non-overlapping intervals that cover all the intervals in the input.
+
+ 
+
+Example 1:
+
+Input: intervals = [[1,3],[2,6],[8,10],[15,18]]
+Output: [[1,6],[8,10],[15,18]]
+Explanation: Since intervals [1,3] and [2,6] overlap, merge them into [1,6].
+
+class Solution {
+public:
+    vector<vector<int>> merge(vector<vector<int>>& v) {
+        int n = v.size();
+         sort(v.begin(), v.end());// nlogn 
+        int a = v[0][0];
+        int b = v[0][1];
+        vector<vector<int>>ans;
+        for(int i=1;i<v.size();i++){   //n 
+            int c = v[i][0];
+            int d = v[i][1];
+            if(c<=b){
+                if(d>b){
+                    swap(d,b);
+                }
+               
+                if(a>c){
+                    a=c;
+                }
+            }
+            else{
+                vector<int>temp;
+                temp.push_back(a);
+                temp.push_back(b);
+                a= c;
+                b=d;
+                ans.push_back(temp);
+            }
+            
+            
+        }
+               vector<int>temp;
+                temp.push_back(a);
+                temp.push_back(b);
+         ans.push_back(temp);
+        return ans;
+        
+        
+        
+    }
+};
